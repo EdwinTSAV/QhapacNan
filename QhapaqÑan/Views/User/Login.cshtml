@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | QhapaqÑan</title>
+    <link rel="shortcut icon" href="/recursos/images/logo.png">
+    <link rel="stylesheet" media="all" href="/css/Login.css" />
+</head>
+<body>
+
+    <div id="app" class="app flex-row align-items-center bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card-group">
+                        <div class="card align-content-center">
+                            <div class="card-body p-5">
+                                <h1>Acceder</h1>
+                                <p class="text-muted">Control de Acceso al Sistema</p>
+                                <form action="/user/login" method="post">
+                                    <p class="text-danger">@Html.ValidationMessage("Login")</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-user"></i></span>
+                                        </div>
+                                        <input type="text" name="dni" value="" placeholder="DNI Ciudadano" required="required" autofocus="autofocus" class="form-control">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-lock"></i></span>
+                                        </div>
+                                        <input type="password" name="contrasenia" placeholder="Contraseña" required="required" class="form-control">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Acceder
+                                        </button>
+                                    </div>
+                                    <div role="toolbar" aria-label="Toolbar with button groups" class="btn-toolbar">
+                                        <div role="group" aria-label="First group" class="btn-group mr-2 text-white">
+                                            <a href="/user/registrar" class="btn btn-success px4">
+                                                Registrar
+                                            </a>
+                                        </div>
+                                        <div role="group" aria-label="Second group" class="btn-group mr-2">
+                                            <a href="https://casillaelectronica.municaj.gob.pe/password/reset" class="btn btn-link">
+                                                ¿Olvidaste tu contraseña?
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> <div class="card text-white py-1 d-md-down-none" style="background: rgb(224, 48, 46);">
+                            <div class="card-body text-center">
+                                <div>
+                                    <img src="~/recursos/images/logo-first.png" width="147" height="200" alt="MPC Logo" class="mb-1"> <h1>Casilla Electrónica</h1> <p>
+                                        Unidad de Informática y Sistemas<br>
+                                        Municipalidad Provincial de Cajamarca
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

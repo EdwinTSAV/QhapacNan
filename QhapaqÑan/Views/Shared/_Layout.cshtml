@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+    <title>@ViewData["Title"] | QhapaqÑan</title>
+    <link rel="shortcut icon" href="/recursos/images/logo.png">
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+    <link rel="stylesheet" media="all" href="/css/css_t3hGNbTRL4vX7O9f-winA5WZWyNxa69QV1sA8DRrKBo.css" />
+    <link rel="stylesheet" media="all" href="/css/Inicio.css" />
+</head>
+<body>
+    <header class="navbar navbar-default container-navbar" id="navbar" role="banner">
+        <div id="redessociales" class="py-0">
+            <row>
+                <div class="container">
+                    <div class="col-xs-10 col-sm-8 col-md-10">
+                        <a class="navbar-brand" href="/" title="Inicio" rel="home">QhapaqÑan</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-4 col-md-2 text-right">
+                        <a href="/user/login" class="navbar-brand" title="Acceso">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <i class="fas fa-user-alt"></i> <span class="text-redsocial small">Acceder</span>
+                            }
+                            else
+                            {
+                                <i class="fas fa-user-alt"></i> <span class="text-redsocial small">Perfil</span>
+                            }
+                        </a>
+                    </div>
+                </div>
+            </row>
+        </div>
+    </header>
+    <div class="main-container-full">
+        <div role="main" class="main-container container js-quickedit-main-content ">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="footerfull">
+
+        <div class="container">
+            <div class="row py-3">
+
+                <div class="col-xs-12 col-sm-12 col-md-4 emergencias">
+
+                    <h3>CONTÁCTENOS</h3>
+                    <p>
+
+                        <table class="table table-sm">
+                            <tbody>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/ubicacion.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Atención Qhapaq Ñan:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            Lun - Vie: 7:30 am - 2:00 pm
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/telefono.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Teléfono:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            076599250 <a href="directorio">(Ver lista de anexos)</a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/correo.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Consultas:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            centroatencionciudadano@municaj.gob.pe
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/correo.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Trámites:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            <a href="https://casillaelectronica.municaj.gob.pe/" target="_self">Casilla Electrónica</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/correo.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Libro de Reclamaciones
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            <a href="https://reclamos.servicios.gob.pe/?institution_id=297" target="_self">Libro de Reclamaciones</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-4 emergencias">
+
+                    <h3>EMERGENCIAS</h3>
+                    <p>
+
+                        <table class="table table-sm">
+                            <tbody>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/bomberos.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Cuerpo General de Bomberos Voluntarios:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            (076) 36 3333 - (076) 36 6787
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/policia.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Policía Nacional del Perú:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            (076) 34 1245
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2" class="text-center">
+                                        <img src="/recursos/images/serenazgo.png">
+                                    </td>
+                                    <td>
+                                        <div class="menu-footer">
+                                            Serenazgo Cajamarca:
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="menu-footer-text">
+                                            (076) 36 1711
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </p>
+
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-4 emergencias">
+
+                    <h3>CORREO Y REDES SOCIALES</h3>
+                    <p>
+
+                        <table class="table table-sm">
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <a class="ml-2 icon-redsocial" href="https://mail.municaj.gob.pe/" title="Correo" target="_blank">
+                                            <i class="fas fa-mail-bulk"></i> <span class="small mr-3">Correo Institucional</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <a class="ml-2 icon-redsocial" href="https://www.facebook.com/municaj" title="Facebook" target="_blank">
+                                            <i class="fab fa-facebook-square"></i> <span class="small mr-3">Facebook</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <a class="ml-2 icon-redsocial" href="http://m.me/municaj" title="Twitter" target="_blank">
+                                            <i class="fab fa-facebook-messenger"></i> <span class="small mr-3">Comunícate</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <a class="ml-2 icon-redsocial" href="https://www.instagram.com/municajamarca/" title="Instragram" target="_blank">
+                                            <i class="fab fa-instagram"></i> <span class="small mr-3">Instragram</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <a class="ml-2 icon-redsocial" href="https://www.youtube.com/channel/UCZrR7oKdew_9yTFZc8Lhgow" title="Youtube" target="_blank">
+                                            <i class="fab fa-youtube-square"></i> <span class="small mr-3">Youtube</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="row py-3">
+            <div class="col text-center text-white">
+                Municipalidad Provincial de Cajamarca 2022.
+                <br>
+                <span class="small">Todos los derechos reservados</span>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

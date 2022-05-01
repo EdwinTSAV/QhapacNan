@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar | QhapaqÑan</title>
+    <link rel="shortcut icon" href="/recursos/images/logo.png">
+    <link rel="stylesheet" media="all" href="/css/Login.css" />
+</head>
+<body>
+    <div id="app" class="app flex-row pt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card-group">
+                        <div class="card align-content-center">
+                            <div class="card-body">
+                                <h3 class="text-center">Casilla Electrónica</h3>
+                                <div class="text-center d-none d-lg-block">
+                                    <img src="~/recursos/images/logo-first.png" width="132" height="158" alt="MPC Logo" class="mb-1">
+                                </div>
+                                <div style="width: auto; padding: 2px 0px;">
+                                    <div>
+                                        <div class="el-card box-card is-always-shadow">
+                                            <div class="el-card__header">
+                                                <div class="clearfix">
+                                                    <span class="card-title">Verificación de DNI. Si eres titular de una empresa coloca el "RUC" de esta</span>
+                                                </div>
+                                            </div>
+                                            <div class="el-card__body">
+                                                <div class="form-container">
+                                                    <form class="el-form el-form--label-right">
+                                                        <div class="el-form-item el-form-item--medium">
+                                                            <label for="dni" class="el-form-item__label" style="width: 35%;">DNI</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium">
+                                                                    <input type="text" name="dni" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="paterno" class="el-form-item__label" style="width: 35%;">Ap. Paterno</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium">
+                                                                    <input type="text" name="Ap_Paterno"  class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="materno" class="el-form-item__label" style="width: 35%;">Ap. Materno</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium">
+                                                                    <input type="text" name="Ap_Materno"  class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="nombres" class="el-form-item__label" style="width: 35%;">Nombres</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium">
+                                                                    <input type="text" name="Nombres" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">F. nacimiento</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="text" name="Nacimiento" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">RUC</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="text" name="ruc" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-form-item el-form-item--medium">
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <button type="button" class="el-button el-button--primary el-button--medium">
+                                                                    <span>Validar</span>
+                                                                </button>
+                                                                <button type="button" class="el-button el-button--danger el-button--medium">
+                                                                    <span>Cancelar</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="el-dialog__wrapper" style="display: none;">
+                                        <div role="dialog" aria-modal="true" aria-label="Terminos y Condiciones" class="el-dialog" style="margin-top: 15vh;">
+                                            <div class="el-dialog__header">
+                                                <span class="el-dialog__title">Terminos y Condiciones</span>
+                                                <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+                                                    <i class="el-dialog__close el-icon el-icon-close"></i>
+                                                </button>
+                                            </div>
+                                            <div class="el-dialog__footer">
+                                                <span class="dialog-footer">
+                                                    <button type="button" class="el-button el-button--primary el-button--medium">
+                                                        <span>Aceptar</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
