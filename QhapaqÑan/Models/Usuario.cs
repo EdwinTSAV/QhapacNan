@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace QhapaqÑan.Clases
+namespace QhapaqÑan.Models
 {
     public class Usuario
     {
@@ -24,6 +24,10 @@ namespace QhapaqÑan.Clases
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [EmailAddress(ErrorMessage = "El campo no es una dirección de correo electrónico válida")]
         public string Correo { get; set; }
+
+        [MinLength(9, ErrorMessage = "Celular minimo 9 caracteres")]
+        [MaxLength(9, ErrorMessage = "Celular máximo 9 caracteres")]
+        public string Celular { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [DataType(DataType.Password)]

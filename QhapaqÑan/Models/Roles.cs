@@ -1,4 +1,4 @@
-﻿namespace QhapaqÑan.Clases
+﻿namespace QhapaqÑan.Models
 {
     public class Roles
     {

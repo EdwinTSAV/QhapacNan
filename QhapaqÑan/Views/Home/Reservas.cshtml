@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Reservas";
+    var reservas = (List<Reserva>)Model;
+}
+
+<div class="row">
+    <div class="region region-iconos-secciones">
+        <h2 class="block-title">Reservas</h2>
+    </div>
+
+</div>
+
+<div class="row">
+    <section class="col-sm-12" style="padding: 25px">
+        <div class="col">
+            <table class="table">
+                <thead class="text-center">
+                    <tr>
+                        <th class="text-center">DNI</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Servicios</th>
+                        <th class="text-center">Horario</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in reservas)
+                    {
+                        <tr>
+                            <td>@item.DNI_User</td>
+                            <td>@String.Format( "{0:dd/MM/yyyy}",item.Fecha)</td>
+                            <td>
+                                <ul>
+                                    @foreach (var servicios in ViewBag.Servicios)
+                                    {
+                                        @if (servicios.Id_Reserva == @item.Id)
+                                        {
+                                            <li>
+                                                @servicios.Servicios.Nombre
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var horarios in ViewBag.Horarios)
+                                    {
+                                        @if (horarios.Id_Reserva == @item.Id)
+                                        {
+                                            <li>@horarios.Hora.Hora_Inicio:00:00 - @horarios.Hora.Hora_Fin:00:00</li>
+                                        }
+                                    }
+                                </ul>
+                            </td>
+                            <td class="form-actions">
+                                @if (item.Fecha > DateTime.Now)
+                                {
+                                    <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
+                                    <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Eliminar</a>
+                                    @if (ViewBag.User.Id_Rol == 1 && item.Estado == false)
+                                    {
+                                        <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Aceptar</a>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size: 1.2em">| Aceptada</span>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

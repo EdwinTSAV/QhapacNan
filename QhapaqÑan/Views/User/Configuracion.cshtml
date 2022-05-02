@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Configuracion";
+    var user = (Usuario)Model;
+}
+
+<div class="row">
+    <div class="region region-iconos-secciones">
+        <h2 class="block-title">Cambio de contraseña para @User.Claims.FirstOrDefault().Value</h2>
+    </div>
+</div>
+
+<div class="row">
+    <section class="col-sm-9" style="padding: 25px">
+        <form action="/user/Configuracion" method="post">
+            <div class="form-group">
+                <label><strong>Contraseña anterior</strong></label>
+                <input type="password" class="form-control" name="ContraseniaAntigua" placeholder="Contraseña anterior" />
+                @Html.ValidationMessage("contrasenia")
+            </div>
+            <div class="form-group">
+                <label><strong>Contraseña nueva</strong></label>
+                <input type="password" class="form-control" name="ContraseniaNueva" placeholder="Contraseña nueva" />
+            </div>
+            <div class="form-group">
+                <label><strong>Confirmar contraseña</strong></label>
+                <input type="password" class="form-control" name="ContraseniaConfirma" placeholder="Confirmar contraseña" />
+            </div>
+            @Html.ValidationMessage("contraseniaX")
+            <div class="form-actions form-group js-form-wrapper form-wrapper" style="float: right">
+                <button type="submit" class="button btn-primary btn">Cambiar contraseña</button>
+            </div>
+        </form>
+    </section>
+
+    <aside class="col-sm-3" role="complementary">
+        <div class="region region-sidebar-second">
+            <nav role="navigation" aria-labelledby="block-menumunicipalidad-menu" id="block-menumunicipalidad">
+
+                <h2 class="visually-hidden" id="block-menumunicipalidad-menu">MENU</h2>
+
+
+
+                <ul class="menu menu--muncipalidad nav">
+                    <li class="menu-icon-8">
+                        <a href="/user/Perfil" data-drupal-link-system-path="node/25">Perfil</a>
+                    </li>
+                    <li class="menu-icon-9">
+                        <a href="/user/configuracion" class="active-trail is-active" data-drupal-link-system-path="node/26">Cambio contraseña</a>
+                    </li>
+                    @if (user.Id_Rol == 1)
+                    {
+                        <li class="menu-icon-12">
+                            <a href="/home/reservas" data-drupal-link-system-path="galerias">Reservas</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="menu-icon-24">
+                            <a href="/home/reservas" data-drupal-link-system-path="node/62">Mis Reservas</a>
+                        </li>
+                    }
+                    <li class="menu-icon-23 last">
+                        <a href="/user/logout" data-drupal-link-system-path="node/61">Salir</a>
+                    </li>
+                </ul>
+
+
+            </nav>
+
+        </div>
+
+    </aside>
+</div>

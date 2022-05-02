@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using QhapaqÑan.Clases;
+using QhapaqÑan.Models;
 
-namespace QhapaqÑan.Models
+namespace QhapaqÑan.Clases
 {
     public class ServiciosMap : IEntityTypeConfiguration<Servicios>
     {

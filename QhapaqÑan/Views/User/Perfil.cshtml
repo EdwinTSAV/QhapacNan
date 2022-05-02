@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Perfil";
+    var user = (Usuario)Model;
+}
+
+<div class="row">
+    <div class="region region-iconos-secciones">
+        <h2 class="block-title">Perfil @User.Claims.FirstOrDefault().Value</h2>
+    </div>
+
+</div>
+
+<div class="row">
+    <section class="col-sm-9" style="padding: 25px">
+        <form action="/user/editar" method="post">
+            <input type="hidden" name="contrasenia" value="@user.Contrasenia" />
+            <input type="hidden" name="Id_Rol" value="@user.Id_Rol" />
+            <input type="hidden" name="Ap_Paterno" value="@user.Ap_Paterno" />
+            <input type="hidden" name="Ap_Materno" value="@user.Ap_Materno" />
+            <input type="hidden" name="DNI" value="@user.DNI" />
+            <input type="hidden" name="Nombres" value="@user.Nombres" />
+            <input type="hidden" name="Nacimiento" value="@user.Nacimiento" />
+            <input type="hidden" name="RUC" value="@user.RUC" />
+            <fieldset disabled>
+                @if (user.RUC != null)
+                {
+                    <h3>Cuenta de empresa</h3>
+                    <div class="form-group">
+                        <label for="disabledTextInput" class="form-label">RUC</label>
+                        <input name="RUC" value="@user.RUC" class="form-control" placeholder="@user.RUC">
+                    </div>
+                    <h4>Titular de empresa</h4>
+                }
+                <div class="form-group">
+                    <label for="disabledTextInput" class="form-label">DNI</label>
+                    <input name="DNI" value="@user.DNI" class="form-control" placeholder="@user.DNI">
+                </div>
+                <div class="form-group">
+                    <label for="disabledTextInput" class="form-label">Nombre(s)</label>
+                    <input name="Nombres" value="@user.Nombres" class="form-control" placeholder="@user.Nombres">
+                </div>
+                <div class="form-group">
+                    <label for="disabledTextInput" class="form-label">Apellido paterno</label>
+                    <input name="Ap_Paterno" value="@user.Ap_Paterno" class="form-control" placeholder="@user.Ap_Paterno">
+                </div>
+                <div class="form-group">
+                    <label for="disabledTextInput" class="form-label">Apellido materno</label>
+                    <input name="Ap_Materno" value="@user.Ap_Materno" class="form-control" placeholder="@user.Ap_Materno">
+                </div>
+                <div class="form-group">
+                    <label for="disabledTextInput" class="form-label">Fecha de Nacimiento</label>
+                    <input name="Nacimiento" value="@String.Format("{0:dd / MM / yyyy}", @user.Nacimiento)" class="form-control" placeholder="@user.Nacimiento">
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <label><strong>Correo</strong></label>
+                <input type="text" class="form-control" name="Correo" placeholder="Correo" value="@user.Correo" />
+                @Html.ValidationMessage("Correo")
+            </div>
+            <div class="form-group">
+                <label><strong>Celular</strong></label>
+                <input type="text" class="form-control" name="Celular" placeholder="Celular" value="@user.Celular" />
+                @Html.ValidationMessage("Celular")
+            </div>
+            <div class="form-actions form-group js-form-wrapper form-wrapper" style="float: right">
+                <button type="submit" class="button btn-primary btn">Guardar cambios</button>
+            </div>
+        </form>
+    </section>
+
+    <aside class="col-sm-3" role="complementary">
+        <div class="region region-sidebar-second">
+            <nav role="navigation" aria-labelledby="block-menumunicipalidad-menu" id="block-menumunicipalidad">
+
+                <h2 class="visually-hidden" id="block-menumunicipalidad-menu">MENU</h2>
+
+
+
+                <ul class="menu menu--muncipalidad nav">
+                    <li class="menu-icon-8">
+                        <a href="/user/Perfil" class="active-trail is-active" data-drupal-link-system-path="node/25">Perfil</a>
+                    </li>
+                    <li class="menu-icon-9">
+                        <a href="/user/configuracion" data-drupal-link-system-path="node/26">Cambio contraseña</a>
+                    </li>
+                    @if (user.Id_Rol == 1)
+                    {
+                        <li class="menu-icon-12">
+                            <a href="/home/reservas" data-drupal-link-system-path="galerias">Reservas</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="menu-icon-24">
+                            <a href="/home/reservas" data-drupal-link-system-path="node/62">Mis Reservas</a>
+                        </li>
+                    }
+                    <li class="menu-icon-23 last">
+                        <a href="/user/logout" data-drupal-link-system-path="node/61">Salir</a>
+                    </li>
+                </ul>
+
+
+            </nav>
+
+        </div>
+
+    </aside>
+</div>

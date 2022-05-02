@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Recuperar";
+}
+<div class="row">
+    <div class="region region-iconos-secciones">
+        <h2 class="block-title">Cambio de contraseña</h2>
+    </div>
+</div>
+
+<div class="row">
+    <section class="col-sm-12" style="padding: 25px">
+        <form action="/user/StartRecover" method="post">
+            @Html.ValidationMessage("Recovery")
+            <input type="hidden" name="Token" value="@Model.Token" />
+            <div class="form-group">
+                <label><strong>Contraseña nueva</strong></label>
+                <input type="password" class="form-control" name="Password" placeholder="Contraseña nueva" />
+                @Html.ValidationMessage("Password")
+            </div>
+            <div class="form-group">
+                <label><strong>Confirmar contraseña</strong></label>
+                <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirmar contraseña" />
+                @Html.ValidationMessage("ConfirmPassword")
+            </div>
+            <div class="form-actions form-group js-form-wrapper form-wrapper" style="float: right">
+                <button type="submit" class="button btn-primary btn">Cambiar contraseña</button>
+            </div>
+        </form>
+    </section>
+</div>
