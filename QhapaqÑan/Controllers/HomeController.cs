@@ -33,6 +33,14 @@ namespace QhapaqÑan.Controllers
         {
             ViewBag.Servicios = context.Servicios.ToList();
             ViewBag.Horarios = context.Horas.ToList();
+
+            var horaActual = DateTime.Now.Date.ToString();
+            var reservas = context.Reservas.Where(o => o.Fecha < DateTime.Parse(horaActual) && o.Estado == false).ToList();
+
+            foreach (var item in reservas)
+            {
+                
+            }
             return View();
         }
 
@@ -40,6 +48,9 @@ namespace QhapaqÑan.Controllers
         [HttpPost]
         public IActionResult Reserva(Reserva reserva, List<int> servicio, List<int> horario)
         {
+            reserva.Precio = 0;
+            var fechaActual = DateTime.Now.Date.ToString();
+            var horaActual = DateTime.Now;
             reserva.DNI_User = User.Claims.FirstOrDefault().Value;
             List<ReservaServicio> reservaServicios = new List<ReservaServicio>();
             List<ReservaHora> reservaHoras = new List<ReservaHora>();
@@ -47,6 +58,33 @@ namespace QhapaqÑan.Controllers
                 ModelState.AddModelError("servicio", "Seleccione por lo menos uno");
             if (horario.Count() == 0)
                 ModelState.AddModelError("horario", "Seleccione por lo menos uno");
+            if (reserva.Fecha == DateTime.Parse(fechaActual))
+            {
+                foreach (var item in horario)
+                {
+                    if (item + 7 < Int32.Parse(horaActual.ToString("HH")))
+                    {
+                        ModelState.AddModelError("Hora", "La hora seleccionada ah caducado");
+                    }
+                }
+            }
+            if (reserva.Fecha < DateTime.Parse(fechaActual))
+            {
+                ModelState.AddModelError("Fecha", "La fecha ha caducado");
+            }
+
+            var serviciosList = context.Servicios.ToList();
+
+            foreach (var item in servicio)
+            {
+                foreach (var item2 in serviciosList)
+                {
+                    if (item == item2.Id)
+                    {
+                        reserva.Precio += (item2.Precio * horario.Count);
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {
@@ -88,17 +126,13 @@ namespace QhapaqÑan.Controllers
         {
             var user = context.Usuarios.Where(o => o.DNI == User.Claims.FirstOrDefault().Value).FirstOrDefault();
             var reservas = context.Reservas.OrderByDescending(o => o.Fecha).ToList();
-            ViewBag.Servicios = context.ReservaServicios.Where(o => o.Reserva.DNI_User == User.Claims.FirstOrDefault().Value).Include(o => o.Servicios).ToList();
-            ViewBag.Horarios = context.ReservaHoras.Where(o => o.Reserva.DNI_User == User.Claims.FirstOrDefault().Value).Include(o => o.Hora).ToList().OrderBy(o => o.Hora.Hora_Inicio);
+            ViewBag.Servicios = context.ReservaServicios.Include(o => o.Servicios).ToList();
+            ViewBag.Horarios = context.ReservaHoras.Include(o => o.Hora).ToList().OrderBy(o => o.Hora.Hora_Inicio);
+            ViewBag.User = user;
             if (user.Id_Rol != 1)
-            {
                 return View(reservas.Where(o => o.DNI_User == User.Claims.FirstOrDefault().Value).ToList());
-            }
             else
-            {
-                ViewBag.User = user;
                 return View(reservas);
-            }
         }
 
         [Authorize]
@@ -124,14 +158,45 @@ namespace QhapaqÑan.Controllers
         [HttpPost]
         public IActionResult Editar(Reserva reserva, List<int> servicio, List<int> horario)
         {
+            var FechaActual = DateTime.Now.Date.ToString();
+            var horaActual = DateTime.Now;
             var res = context.Reservas.Where(o => o.Id == reserva.Id).FirstOrDefault();
             res.Fecha = reserva.Fecha;
+            res.Precio = 0;
             List<ReservaServicio> reservaServicios = new List<ReservaServicio>();
             List<ReservaHora> reservaHoras = new List<ReservaHora>();
             if (servicio.Count() == 0)
                 ModelState.AddModelError("servicio", "Seleccione por lo menos uno");
             if (horario.Count() == 0)
                 ModelState.AddModelError("horario", "Seleccione por lo menos uno");
+
+            if (reserva.Fecha == DateTime.Parse(FechaActual))
+            {
+                foreach (var item in horario)
+                {
+                    if (item + 7 < Int32.Parse(horaActual.ToString("HH")))
+                    {
+                        ModelState.AddModelError("Hora", "La hora seleccionada ah caducado");
+                    }
+                }
+            }
+            if (reserva.Fecha < DateTime.Parse(FechaActual))
+            {
+                ModelState.AddModelError("Fecha", "La fecha ha caducado");
+            }
+
+            var serviciosList = context.Servicios.ToList();
+
+            foreach (var item in servicio)
+            {
+                foreach (var item2 in serviciosList)
+                {
+                    if (item == item2.Id)
+                    {
+                        res.Precio += (item2.Precio * horario.Count);
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {
@@ -175,14 +240,38 @@ namespace QhapaqÑan.Controllers
         [HttpGet]
         public IActionResult Eliminar(int id)
         {
+            var reservas = context.Reservas.OrderByDescending(o => o.Fecha).ToList();
             var reserva = context.Reservas.Where(o => o.Id == id).FirstOrDefault();
-            var horas = context.ReservaHoras.Where(o => o.Id_Reserva == id).ToList();
-            var servicios = context.ReservaServicios.Where(o => o.Id_Reserva == id).ToList();
-            context.Reservas.Remove(reserva);
-            context.ReservaHoras.RemoveRange(horas);
-            context.ReservaServicios.RemoveRange(servicios);
-            context.SaveChanges();
-            return View("Reservas");
+            if (reserva.Estado == false)
+            {
+                var horas = context.ReservaHoras.Where(o => o.Id_Reserva == id).ToList();
+                var servicios = context.ReservaServicios.Where(o => o.Id_Reserva == id).ToList();
+                context.Reservas.Remove(reserva);
+                context.ReservaHoras.RemoveRange(horas);
+                context.ReservaServicios.RemoveRange(servicios);
+                context.SaveChanges();
+            }
+            return View("Reservas", reservas);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Aceptar(int id)
+        {
+            var reservas = context.Reservas.OrderByDescending(o => o.Fecha).ToList();
+            var user = context.Usuarios.Where(o => o.DNI == User.Claims.FirstOrDefault().Value).FirstOrDefault();
+            if (user.Id_Rol == 1)
+            {
+                var reserva = context.Reservas.Where(o => o.Id == id).FirstOrDefault();
+                reserva.Estado = true;
+                context.Reservas.Update(reserva);
+                context.SaveChanges();
+                return View("Reservas", reservas);
+            }
+            else
+            {
+                return View("Reservas", reservas);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

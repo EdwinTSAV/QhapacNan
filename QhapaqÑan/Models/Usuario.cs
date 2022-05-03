@@ -32,7 +32,6 @@ namespace QhapaqÑan.Models
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Contraseña minimo 6 caracteres")]
-        [MaxLength(15, ErrorMessage = "Contraseña máximo 15 caracteres")]
         public string Contrasenia { get; set; }
 
         public string Recovery { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace QhapaqÑan.Models
 {
@@ -6,7 +7,9 @@ namespace QhapaqÑan.Models
     {
         public int Id { get; set; }
         public string DNI_User { get; set; }
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public DateTime Fecha { get; set; }
         public bool Estado { get; set; }
+        public decimal Precio { get; set; }
     }
 }

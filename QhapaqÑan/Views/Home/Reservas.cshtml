@@ -21,6 +21,7 @@
                         <th class="text-center">Fecha</th>
                         <th class="text-center">Servicios</th>
                         <th class="text-center">Horario</th>
+                        <th class="text-center">Precio</th>
                         <th class="text-center"></th>
                     </tr>
                 </thead>
@@ -49,23 +50,40 @@
                                     {
                                         @if (horarios.Id_Reserva == @item.Id)
                                         {
-                                            <li>@horarios.Hora.Hora_Inicio:00:00 - @horarios.Hora.Hora_Fin:00:00</li>
+                                            <li>@horarios.Hora.Hora_Inicio - @horarios.Hora.Hora_Fin</li>
                                         }
                                     }
                                 </ul>
                             </td>
+                            <td>@item.Precio</td>
                             <td class="form-actions">
-                                @if (item.Fecha > DateTime.Now)
+                                @if (item.Fecha >= DateTime.Parse(DateTime.Now.Date.ToString()))
                                 {
-                                    <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
-                                    <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Eliminar</a>
                                     @if (ViewBag.User.Id_Rol == 1 && item.Estado == false)
                                     {
-                                        <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Aceptar</a>
+                                        <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
+                                        <a class="button btn-primary btn" href="/home/aceptar?id=@item.Id">Aceptar</a>
                                     }
-                                    else
+                                    else if (item.Estado == true)
                                     {
-                                        <span style="font-size: 1.2em">| Aceptada</span>
+                                        <span style="font-size: 1.2em">Aceptado</span>
+                                    }
+                                    else if (item.Estado == false)
+                                    {
+                                        <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
+                                        <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Eliminar</a>
+                                        <span style="font-size: 1.2em"> Pendiente</span>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Estado == true)
+                                    {
+                                        <span style="font-size: 1.2em">Aceptado</span>
+                                    }
+                                    else if (item.Estado == false)
+                                    {
+                                        <span style="font-size: 1.2em">Cancelado</span>
                                     }
                                 }
                             </td>

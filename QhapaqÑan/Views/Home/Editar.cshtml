@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label>Fecha</label>
-                <input type="date" class="form-control" placeholder="Fecha" name="Fecha" value="" />
+                <input type="date" class="form-control" placeholder="Fecha" name="Fecha" value="@reserva.Fecha" />
                 @Html.ValidationMessage("Fecha")
             </div>
             <div class="form-group">
@@ -37,7 +37,7 @@
                         <label class="form-check-label" for="inlineCheckbox1">@item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00</label>@*verificar 3 estados - reservado - pendiente - libre*@
                     </div>
                 }
-                @Html.ValidationMessage("horario")
+                @Html.ValidationMessage("Hora")
             </div>
             <div class="form-group">
                 <label>Metodo de pago</label>
