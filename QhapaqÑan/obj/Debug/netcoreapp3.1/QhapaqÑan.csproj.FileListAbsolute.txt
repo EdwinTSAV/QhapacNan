@@ -161,3 +161,4 @@ C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\bin\Debug\netcoreapp3.1\itextshar
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\wwwroot\Tickets\Ticket.cshtml.g.cs
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Reporte.cshtml.g.cs
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\wwwroot\Reportes\Reportes.cshtml.g.cs
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\Home\HorasDisOcu.cshtml.g.cs

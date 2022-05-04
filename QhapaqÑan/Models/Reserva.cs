@@ -10,6 +10,7 @@ namespace QhapaqÑan.Models
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public DateTime Fecha_Pre { get; set; }
         public DateTime Fecha_Post { get; set; }
+        public DateTime Hora_Fecha { get; set; }
         public bool Estado { get; set; }
         public decimal Precio { get; set; }
     }

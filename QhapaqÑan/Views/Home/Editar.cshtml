@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Editar";
     var reserva = (Reserva)Model;
+    var ban = false;
 }
 
 <div class="row">
@@ -13,30 +14,77 @@
             <input type="hidden" name="DNI_User" value="@reserva.DNI_User" />
             <input type="hidden" name="Id" value="@reserva.Id" />
             <div class="form-group">
+                <label>Fecha</label>
+                <input onchange="cargarHoras(this);return false;" id="fecha" type="date" class="form-control" placeholder="Fecha" name="Fecha_Post" value="@reserva.Fecha_Post" />
+                @Html.ValidationMessage("Fecha")
+            </div>
+            <div class="form-group">
                 <label>Elegir una o varias opciones</label>
+
                 @foreach (var item in ViewBag.Servicios)
                 {
-                    <div class="form-check form-check">
-                        <input name="servicio" class="form-check-input" type="checkbox" value="@item.Id">
-                        <label class="form-check-label" for="inlineCheckbox1">@item.Nombre</label>
-                    </div>
+                    ban = false;
+                    foreach (var item2 in ViewBag.RServicios)
+                    {
+                        if (item.Id == item2.Id_Servicio)
+                        {
+                            <div class="form-check form-check">
+                                <input name="servicio" class="form-check-input" type="checkbox" value="@item.Id" id="flexCheckDefault" checked>
+                                <label class="form-check-label" for="inlineCheckbox1">@item.Nombre</label>
+                            </div>
+                            ban = true;
+                        }
+                    }
+                    if (ban == false)
+                    {
+                        <div class="form-check form-check">
+                            <input name="servicio" class="form-check-input" type="checkbox" id="flexCheckChecked" value="@item.Id">
+                            <label class="form-check-label" for="inlineCheckbox1">@item.Nombre</label>
+                        </div>
+                    }
                 }
                 @Html.ValidationMessage("servicio")
             </div>
             <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" placeholder="Fecha" name="Fecha_Post" value="@reserva.Fecha_Post" />
-                @Html.ValidationMessage("Fecha")
-            </div>
-            <div class="form-group">
                 <label>Nr° Horas: Eleguir una o varias opciones</label>
-                @foreach (var item in ViewBag.Horarios)
-                {
-                    <div class="form-check form-check">
-                        <input name="horario" class="form-check-input" type="checkbox" value="@item.Id">
-                        <label class="form-check-label" for="inlineCheckbox1">@item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00</label>@*verificar 3 estados - reservado - pendiente - libre*@
-                    </div>
-                }
+                <div id="horario">
+                    @foreach (var item in ViewBag.Horarios)
+                    {
+                        ban = false;
+                        foreach (var item2 in ViewBag.RHorarios)
+                        {
+                            if (item.Id == item2.Id_Hora && item2.Estado == false)
+                            {
+                                <div class="form-check form-check">
+                                    <input class="form-check-input" type="checkbox" value="" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        @item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00
+                                    </label>
+                                    <label style="float:right; color:blueviolet"> Pendiente</label>
+                                </div>
+                                ban = true;
+                            }
+                            else if (item.Id == item2.Id_Hora && item2.Estado == true)
+                            {
+                                <div class="form-check form-check">
+                                    <input class="form-check-input" type="checkbox" value="" checked disabled>
+                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
+                                        @item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00
+                                    </label>
+                                    <label style="float:right; color:red"> Reservado</label>
+                                </div>
+                                ban = true;
+                            }
+                        }
+                        if (ban == false)
+                        {
+                            <div class="form-check form-check">
+                                <input name="horario" class="form-check-input" type="checkbox" value="@item.Id">
+                                <label class="form-check-label" for="inlineCheckbox1">@item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00</label>@*verificar 3 estados - reservado - pendiente - libre*@
+                            </div>
+                        }
+                    }
+                </div>
                 @Html.ValidationMessage("Hora")
             </div>
             <div class="form-group">
@@ -51,3 +99,20 @@
         </form>
     </section>
 </div>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function cargarHoras(object) {
+            console.log(object.value);
+            var $fecha = $('input#fecha');
+            var $hora = $('div#horario');
+            console.log($fecha.val());
+            $.ajax({
+                'url': '/home/HorasDisOcu?fecha=' + $fecha.val(),
+                'type': 'get'
+            }).done(function (htmlOptions) {
+                $hora.html(htmlOptions);
+            })
+        }
+    </script>
+}

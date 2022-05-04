@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "HorasDisOcu";
+    Layout = null;
+    var resHora = (List<ReservaHora>)Model;
+    var ban = false;
+}
+
+<!--<h1>HorasDisOcu</h1>
+
+<div class="form-check form-check">
+    <input name="horario" class="form-check-input" type="checkbox" value="item.Id">
+    <label class="form-check-label" for="inlineCheckbox1">item.Hora_Inicio:00:00 - item.Hora_Fin:00:00</label>-->
+<!--</div>-->
+
+@foreach (var item in ViewBag.Horarios)
+{
+    ban = false;
+    foreach (var item2 in resHora)
+    {
+        if (item.Id == item2.Id_Hora && item2.Estado == false)
+        {
+            <div class="form-check form-check">
+                <input class="form-check-input" type="checkbox" value="" checked disabled>
+                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                    @item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00
+                </label>
+                <label style="float:right; color:blueviolet"> Pendiente</label>
+            </div>
+            ban = true;
+        }
+        else if (item.Id == item2.Id_Hora && item2.Estado == true)
+        {
+            <div class="form-check form-check">
+                <input class="form-check-input" type="checkbox" value="" checked disabled>
+                <label class="form-check-label" for="flexCheckCheckedDisabled">
+                    @item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00
+                </label>
+                <label style="float:right; color:red"> Reservado</label>
+            </div>
+            ban = true;
+        }
+    }
+    if (ban == false)
+    {
+        <div class="form-check form-check">
+            <input name="horario" class="form-check-input" type="checkbox" value="@item.Id">
+            <label class="form-check-label" for="inlineCheckbox1">@item.Hora_Inicio:00:00 - @item.Hora_Fin:00:00</label>@*verificar 3 estados - reservado - pendiente - libre*@
+        </div>
+    }
+}

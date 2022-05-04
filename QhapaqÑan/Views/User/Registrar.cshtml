@@ -33,20 +33,21 @@
                                             </div>
                                             <div class="el-card__body">
                                                 <div class="form-container">
-                                                    <form class="el-form el-form--label-right">
+                                                    <form class="el-form el-form--label-right" action="/user/Register" method="post">
                                                         <div class="el-form-item el-form-item--medium">
                                                             <label for="dni" class="el-form-item__label" style="width: 35%;">DNI</label>
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <div class="el-input el-input--medium">
-                                                                    <input type="text" name="dni" class="el-input__inner">
+                                                                    <input type="text" name="DNI" class="el-input__inner">
                                                                 </div>
                                                             </div>
+                                                            @Html.ValidationMessage("DNI")
                                                         </div>
                                                         <div class="el-form-item is-required el-form-item--medium">
                                                             <label for="paterno" class="el-form-item__label" style="width: 35%;">Ap. Paterno</label>
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <div class="el-input el-input--medium">
-                                                                    <input type="text" name="Ap_Paterno"  class="el-input__inner">
+                                                                    <input type="text" name="Ap_Paterno" class="el-input__inner">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -54,7 +55,7 @@
                                                             <label for="materno" class="el-form-item__label" style="width: 35%;">Ap. Materno</label>
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <div class="el-input el-input--medium">
-                                                                    <input type="text" name="Ap_Materno"  class="el-input__inner">
+                                                                    <input type="text" name="Ap_Materno" class="el-input__inner">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -70,7 +71,7 @@
                                                             <label for="direccion" class="el-form-item__label" style="width: 35%;">F. nacimiento</label>
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
-                                                                    <input type="text" name="Nacimiento" class="el-input__inner">
+                                                                    <input type="date" name="Nacimiento" class="el-input__inner">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -78,11 +79,52 @@
                                                             <label for="direccion" class="el-form-item__label" style="width: 35%;">RUC</label>
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
-                                                                    <input type="text" name="ruc" class="el-input__inner">
+                                                                    <input type="text" name="RUC" class="el-input__inner">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="el-form-item el-form-item--medium">
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">Correo</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="text" name="Correo" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessage("Correo")
+                                                        </div>
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">Celular</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="text" name="Celular" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessage("Celular")
+                                                        </div>
+
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">Contraseña</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="password" name="Contrasenia" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessage("Contrasenia")
+                                                        </div>
+
+                                                        <div class="el-form-item is-required el-form-item--medium">
+                                                            <label for="direccion" class="el-form-item__label" style="width: 35%;">Confirmar contraseña</label>
+                                                            <div class="el-form-item__content" style="margin-left: 35%;">
+                                                                <div class="el-input el-input--medium el-popover__reference" aria-describedby="el-popover-4188" tabindex="0">
+                                                                    <input type="password" name="passwordC" class="el-input__inner">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-actions form-group js-form-wrapper form-wrapper" style="float: right">
+                                                            <button type="submit" class="el-button el-button--primary el-button--medium">Registrar</button>
+                                                        </div>
+                                                        @*<div class="el-form-item el-form-item--medium">
                                                             <div class="el-form-item__content" style="margin-left: 35%;">
                                                                 <button type="button" class="el-button el-button--primary el-button--medium">
                                                                     <span>Validar</span>
@@ -91,13 +133,13 @@
                                                                     <span>Cancelar</span>
                                                                 </button>
                                                             </div>
-                                                        </div>
+                                                        </div>*@
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="el-dialog__wrapper" style="display: none;">
+                                    @*<div class="el-dialog__wrapper" style="display: none;">
                                         <div role="dialog" aria-modal="true" aria-label="Terminos y Condiciones" class="el-dialog" style="margin-top: 15vh;">
                                             <div class="el-dialog__header">
                                                 <span class="el-dialog__title">Terminos y Condiciones</span>
@@ -113,7 +155,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>

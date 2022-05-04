@@ -44,6 +44,14 @@ namespace QhapaqÑan.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult HorasDisOcu(string fecha)
+        {
+            var rHorarios = context.ReservaHoras.Where(o => o.Reserva.Fecha_Post == DateTime.Parse(fecha)).ToList();
+            ViewBag.Horarios = context.Horas.ToList();
+            return View(rHorarios);
+        }
+
         [Authorize]
         [HttpPost]
         public IActionResult Reserva(Reserva reserva, List<int> servicio, List<int> horario)
@@ -86,6 +94,7 @@ namespace QhapaqÑan.Controllers
                 }
             }
             reserva.Fecha_Pre = DateTime.Now;
+            reserva.Hora_Fecha = DateTime.Now;
             if (ModelState.IsValid)
             {
                 context.Reservas.Add(reserva);
@@ -144,6 +153,8 @@ namespace QhapaqÑan.Controllers
             var reservas = context.Reservas.Where(o => o.Id == id).FirstOrDefault();
             ViewBag.Servicios = context.Servicios.ToList();
             ViewBag.Horarios = context.Horas.ToList();
+            ViewBag.RServicios = context.ReservaServicios.Where(o => o.Id_Reserva == id).ToList();
+            ViewBag.RHorarios = context.ReservaHoras.Where(o => o.Id_Reserva == id).ToList();
             if (user.Id_Rol != 1)
             {
                 return View(reservas);
@@ -200,6 +211,7 @@ namespace QhapaqÑan.Controllers
             }
 
             reserva.Fecha_Pre = DateTime.Now;
+            reserva.Hora_Fecha = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -291,7 +303,7 @@ namespace QhapaqÑan.Controllers
                     context.Reservas.RemoveRange(reservasCanceladas);
                 }
 
-                var reservasNoPagadas = context.Reservas.Where(o => DateTime.Parse(o.Fecha_Pre.ToString()).AddDays(2) < DateTime.Parse(horaActual) && o.Estado == false).ToList();
+                var reservasNoPagadas = context.Reservas.Where(o => o.Fecha_Pre.AddDays(2) < DateTime.Parse(horaActual) && o.Estado == false).ToList();
                 foreach (var item in reservasNoPagadas)
                 {
                     var resHor = context.ReservaHoras.Where(o => o.Id_Reserva == item.Id).ToList();
@@ -301,7 +313,7 @@ namespace QhapaqÑan.Controllers
                     context.Reservas.RemoveRange(reservasNoPagadas);
                 }
 
-                var reservasNoPagadas2Dias = context.Reservas.Where(o => DateTime.Parse(o.Fecha_Pre.ToString()).AddDays(2) == o.Fecha_Post && o.Estado == false).ToList();
+                var reservasNoPagadas2Dias = context.Reservas.Where(o => o.Fecha_Pre.AddDays(2) == o.Fecha_Post && o.Estado == false).ToList();
 
                 foreach (var item in reservasNoPagadas2Dias)
                 {
@@ -315,7 +327,7 @@ namespace QhapaqÑan.Controllers
                     }
                 }
 
-                var reservasNoPagadas1Dias = context.Reservas.Where(o => DateTime.Parse(o.Fecha_Pre.ToString()).AddDays(1) == o.Fecha_Post && o.Estado == false).ToList();
+                var reservasNoPagadas1Dias = context.Reservas.Where(o => o.Fecha_Pre.AddDays(1) == o.Fecha_Post && o.Estado == false).ToList();
 
                 foreach (var item in reservasNoPagadas1Dias)
                 {
@@ -329,17 +341,24 @@ namespace QhapaqÑan.Controllers
                     }
                 }
 
-                var reservasNoPagadas0Dias = context.Reservas.Where(o => DateTime.Parse(o.Fecha_Pre.ToString()) == o.Fecha_Post && o.Estado == false).ToList();
-
-                if (DateTime.Now >= DateTime.Parse("8:00:00"))
-                {
-
-                }
+                var reservasNoPagadas0Dias = context.Reservas.Where(o => o.Fecha_Pre == o.Fecha_Post && o.Estado == false).ToList();
+                
                 foreach (var item in reservasNoPagadas0Dias)
                 {
-                    var resHor = context.ReservaHoras.Where(o => o.Id_Reserva == item.Id).OrderBy(o => o.Hora.Hora_Inicio).FirstOrDefault();
-                    if (item.Fecha_Pre.AddHours(2) > DateTime.Now)
+                    if (item.Hora_Fecha >= DateTime.Parse(horaActual).AddHours(8))
                     {
+                        if (item.Hora_Fecha.AddHours(2) < DateTime.Now)
+                        {
+                            var resHor = context.ReservaHoras.Where(o => o.Id_Reserva == item.Id).OrderBy(o => o.Hora.Hora_Inicio).ToList();
+                            var resSer = context.ReservaServicios.Where(o => o.Id_Reserva == item.Id).ToList();
+                            context.ReservaHoras.RemoveRange(resHor);
+                            context.ReservaServicios.RemoveRange(resSer);
+                            context.Reservas.RemoveRange(reservasNoPagadas0Dias);
+                        }
+                    }
+                    else if (DateTime.Now > DateTime.Parse(horaActual).AddHours(10))
+                    {
+                        var resHor = context.ReservaHoras.Where(o => o.Id_Reserva == item.Id).OrderBy(o => o.Hora.Hora_Inicio).ToList();
                         var resSer = context.ReservaServicios.Where(o => o.Id_Reserva == item.Id).ToList();
                         context.ReservaHoras.RemoveRange(resHor);
                         context.ReservaServicios.RemoveRange(resSer);
@@ -347,6 +366,12 @@ namespace QhapaqÑan.Controllers
                     }
                 }
 
+                var resHoraA = context.ReservaHoras.Where(o => o.Id_Reserva == id).ToList();
+                foreach (var item in resHoraA)
+                {
+                    item.Estado = true;
+                }
+                context.UpdateRange(resHoraA);
                 context.SaveChanges();
 
 
