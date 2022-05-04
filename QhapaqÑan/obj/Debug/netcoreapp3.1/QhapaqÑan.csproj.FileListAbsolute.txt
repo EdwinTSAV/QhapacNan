@@ -156,3 +156,8 @@ C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\User\StartRecover.cshtml.g.cs
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Reservas.cshtml.g.cs
 C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Editar.cshtml.g.cs
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\bin\Debug\netcoreapp3.1\itextsharp.dll
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\bin\Debug\netcoreapp3.1\itextsharp.xmlworker.dll
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\wwwroot\Tickets\Ticket.cshtml.g.cs
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\Views\Home\Reporte.cshtml.g.cs
+C:\Users\familia\Desktop\QhapaqÑan\QhapaqÑan\obj\Debug\netcoreapp3.1\Razor\wwwroot\Reportes\Reportes.cshtml.g.cs

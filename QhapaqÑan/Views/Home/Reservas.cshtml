@@ -30,7 +30,7 @@
                     {
                         <tr>
                             <td>@item.DNI_User</td>
-                            <td>@String.Format( "{0:dd/MM/yyyy}",item.Fecha)</td>
+                            <td>@String.Format("{0:dd/MM/yyyy}", item.Fecha_Post)</td>
                             <td>
                                 <ul>
                                     @foreach (var servicios in ViewBag.Servicios)
@@ -57,21 +57,22 @@
                             </td>
                             <td>@item.Precio</td>
                             <td class="form-actions">
-                                @if (item.Fecha >= DateTime.Parse(DateTime.Now.Date.ToString()))
+                                @if (item.Fecha_Post >= DateTime.Parse(DateTime.Now.Date.ToString()))
                                 {
                                     @if (ViewBag.User.Id_Rol == 1 && item.Estado == false)
                                     {
-                                        <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
-                                        <a class="button btn-primary btn" href="/home/aceptar?id=@item.Id">Aceptar</a>
+                                        <a class="button btn" href="/home/editar?id=@item.Id">Editar</a>
+                                        <a class="button btn botonAceptar" onclick="Aceptar(@item.Id)" @*href="/home/aceptar?id=@item.Id"*@>Aceptar</a>
                                     }
                                     else if (item.Estado == true)
                                     {
-                                        <span style="font-size: 1.2em">Aceptado</span>
+                                        string archivo = item.Id + ViewBag.User.DNI + item.Precio + ".pdf";
+                                        <a class="button btn-primary btn" href="~/Tickets/@archivo" style="font-size: 1.2em">ver ticked</a>
                                     }
                                     else if (item.Estado == false)
                                     {
-                                        <a class="button btn-primary btn" href="/home/editar?id=@item.Id">Editar</a>
-                                        <a class="button btn-primary btn" href="/home/eliminar?id=@item.Id">Eliminar</a>
+                                        <a class="button btn" href="/home/editar?id=@item.Id">Editar</a>
+                                        <a class="button btn botonEliminar" onclick="Eliminar(@item.Id)" @*href="/home/eliminar?id=@item.Id"*@>Eliminar</a>
                                         <span style="font-size: 1.2em"> Pendiente</span>
                                     }
                                 }
@@ -79,7 +80,8 @@
                                 {
                                     if (item.Estado == true)
                                     {
-                                        <span style="font-size: 1.2em">Aceptado</span>
+                                        string archivo = item.Id + ViewBag.User.DNI + item.Precio + ".pdf";
+                                        <a class="button btn" href="~/Tickets/@archivo" style="font-size: 1.2em">ver ticked</a>
                                     }
                                     else if (item.Estado == false)
                                     {
@@ -94,3 +96,68 @@
         </div>
     </section>
 </div>
+
+@section Scripts{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    function Eliminar(id) {
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Eliminaras esta reserva. Esta acción no se puede revertir",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, ¡Eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/home/eliminar?id=" + id,
+                        type: "get"
+                    });
+                    Swal.fire({
+                        title: 'Eliminado!',
+                        text: 'Reserva eliminada correctamente',
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+    <script>
+        function Aceptar(id) {
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Aceptaras esta reserva. Esta acción no se puede revertir",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, ¡Aceptar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/home/aceptar?id=" + id,
+                        type: "get"
+                    });
+                    Swal.fire({
+                        title: 'Aceptada!',
+                        text: 'Reserva aceptada correctamente',
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+}

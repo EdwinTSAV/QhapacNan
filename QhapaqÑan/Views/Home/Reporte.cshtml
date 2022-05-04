@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Reportes";
+    var user = (Usuario)Model;
+}
+
+<div class="row">
+    <div class="region region-iconos-secciones">
+        <h2 class="block-title">Generar reporte</h2>
+    </div>
+
+</div>
+
+<div class="row">
+    <section class="col-sm-9" style="padding: 25px">
+
+        <p>Eliga un rango de fechas para obtener dicho reporte, la fecha no debe pasar la fecha actual</p>
+
+        <form action="/home/reporte" method="post">
+            <div class="form-group">
+                <label>Fecha Inicial</label>
+                <input type="date" class="form-control" placeholder="Fecha de inicio de reporte" name="FechaInicio" />
+                @Html.ValidationMessage("FechaI")
+            </div>
+            <div class="form-group">
+                <label>Fecha Final</label>
+                <input type="date" class="form-control" placeholder="Fecha de fin de reporte" name="FechaFin" />
+                @Html.ValidationMessage("FechaF")
+            </div>
+            <div class="form-actions form-group js-form-wrapper form-wrapper" style="float: right">
+                <button type="submit" class="button btn-primary btn">Generar Reporte</button>
+            </div>
+        </form>
+    </section>
+
+    <aside class="col-sm-3" role="complementary">
+        <div class="region region-sidebar-second">
+            <nav role="navigation" aria-labelledby="block-menumunicipalidad-menu" id="block-menumunicipalidad">
+
+                <h2 class="visually-hidden" id="block-menumunicipalidad-menu">MENU</h2>
+
+
+
+                <ul class="menu menu--muncipalidad nav">
+                    <li class="menu-icon-8">
+                        <a href="/user/Perfil" class="active-trail is-active" data-drupal-link-system-path="node/25">Perfil</a>
+                    </li>
+                    <li class="menu-icon-9">
+                        <a href="/user/configuracion" data-drupal-link-system-path="node/26">Cambio contraseña</a>
+                    </li>
+                    @if (user.Id_Rol == 1)
+                    {
+                        <li class="menu-icon-12">
+                            <a href="/home/reservas" data-drupal-link-system-path="galerias">Reservas</a>
+                        </li>
+                        <li class="menu-icon-12">
+                            <a href="/home/reporte" data-drupal-link-system-path="galerias">Reportes</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="menu-icon-24">
+                            <a href="/home/reservas" data-drupal-link-system-path="node/62">Mis Reservas</a>
+                        </li>
+                    }
+                    <li class="menu-icon-23 last">
+                        <a href="/user/logout" data-drupal-link-system-path="node/61">Salir</a>
+                    </li>
+                </ul>
+
+
+            </nav>
+
+        </div>
+
+    </aside>
+</div>
