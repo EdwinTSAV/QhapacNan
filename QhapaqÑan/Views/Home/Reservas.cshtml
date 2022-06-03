@@ -66,7 +66,7 @@
                                     }
                                     else if (item.Estado == true)
                                     {
-                                        string archivo = item.Id + ViewBag.User.DNI + item.Precio + ".pdf";
+                                        string archivo = item.Id + item.DNI_User + item.Precio + ".pdf";
                                         <a class="button btn-primary btn" href="~/Tickets/@archivo" style="font-size: 1.2em">ver ticked</a>
                                     }
                                     else if (item.Estado == false)

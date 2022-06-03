@@ -377,7 +377,7 @@ namespace QhapaqÑan.Controllers
 
                 var cantidad = reservas.Where(o => o.DNI_User == User.Claims.FirstOrDefault().Value).Count();
                 
-                var file = Path.Combine(hosting.WebRootPath, Path.Combine("Tickets", reserva.Id + user.DNI + reserva.Precio + ".pdf"));
+                var file = Path.Combine(hosting.WebRootPath, Path.Combine("Tickets", reserva.Id + userReserva.DNI + reserva.Precio + ".pdf"));
                 using (var archivo = new FileStream(file, FileMode.Create))
                 {
                     Document pdf = new Document(PageSize.A4,25,25,25,25);
